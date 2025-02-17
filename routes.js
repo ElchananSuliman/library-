@@ -58,9 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     404: {
       title: "Page Not Found",
+<<<<<<< HEAD
+      content: ` 
+=======
       content: `
+<<<<<<< HEAD
+>>>>>>> 0727adeff18471b4e3365a712eaca92eb5cd3237
+        `,
+    },
+=======
         `
     }
+>>>>>>> 52e8bdb19b3e0a6780635187745fa81103ba0802
   };
 
   function handleRoute() {
