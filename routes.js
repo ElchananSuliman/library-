@@ -4,17 +4,66 @@ document.addEventListener("DOMContentLoaded", function () {
     "/": {
       title: "Home",
       content: `
-        <h1>Welcome</h1>
-        `,
+        <h1 class="content">BEST SELLERS</h1>
+        `
     },
+    "/Books": {
+      title: "all-books",
+      content: `
+        <h1 class="content">ALL BOOKS</h1>
+        `
+    },
+    "/Fiction": {
+      title: "Fiction",
+      content: `
+        <h1 class="content">BOOKS - FICTION</h1>
+        `
+    },
+    "/Non-Fiction": {
+      title: "Non-Fiction",
+      content: `
+        <h1 class="content">BOOKS - NON FICTION</h1>
+        `
+    },
+    "/science": {
+      title: "science",
+      content: `
+        <h1 class="content">BOOKS - SCIENCE</h1>
+        `
+    },
+    "/History": {
+      title: "History",
+      content: `
+        <h1 class="content">BOOKS - HISTORY</h1>
+        `
+    },
+    "/Biography": {
+      title: "Biography",
+      content: `
+        <h1 class="content">BOOKS - BIOGRAPHY</h1>
+        `
+    },
+    "/login": {
+      title: "",
+      content:
+       `
+      `
+    },
+    "/register": {
+      title: "",
+      content: 
+      `
+`
+    },
+
     404: {
       title: "Page Not Found",
       content: `
-        `,
-    },
+        `
+    }
   };
 
-  function handelRoute() {
+  function handleRoute() {
     const pathName = window.location.pathname;
     const route = routes[pathName] || routes["404"];
 
@@ -29,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const href = event.target.getAttribute("href");
 
       window.history.pushState({}, "", href);
-      handelRoute();
+      handleRoute();
     }
   });
-  window.addEventListener("popstate", handelRoute);
-  handelRoute();
+  window.addEventListener("popstate", handleRoute);
+  handleRoute();
 });
