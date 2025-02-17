@@ -18,13 +18,23 @@
 <body>
 
     <header>
-        <nav>
-            <img src="logo.jpg" alt="">
+        <div class="container">
+
+
+            <img src="logo.jpg" alt="logo" id="logo">
+            <div id="sub-container3">
+                <div id="user-login">
+                    <h2>user :</h2>
+                    <h3 id="conectUser">disconected</h3>
+                </div>
+                <i class="fa-solid fa-cart-shopping" id="cart"></i>
+            </div>
+
             <div id="sub-container1">
                 <h1>MY LIBRARY</h1>
                 <div id="sub-container2">
-                    <a href="" class="nav-link">HOME</a>
-                    <a href="" class="nav-link">BOOKS</a>
+                    <a href="/" class="nav-link">HOME</a>
+                    <a href="/Books" class="nav-link">BOOKS</a>
                     <input type="search" class="search-input" placeholder="search">
 
 
@@ -34,11 +44,11 @@
                             <span>CATEGORY</span>
                         </div>
                         <div class="category-dropdown">
-                            <a href="#" class="category-item">Fiction</a>
-                            <a href="#" class="category-item">Non-Fiction</a>
-                            <a href="#" class="category-item">Science</a>
-                            <a href="#" class="category-item">History</a>
-                            <a href="#" class="category-item">Biography</a>
+                            <a href="/Fiction" class="category-item nav-link">Fiction</a>
+                            <a href="/Non-Fiction" class="category-item nav-link">Non-Fiction</a>
+                            <a href="/science" class="category-item nav-link">Science</a>
+                            <a href="/History" class="category-item nav-link">History</a>
+                            <a href="/Biography" class="category-item nav-link">Biography</a>
                         </div>
 
                     </div>
@@ -47,10 +57,13 @@
 
                 </div>
             </div>
-            <div id="sub-container3">
-                <i class="fa-solid fa-cart-shopping" id="cart"></i>
+            <div id="login-section">
+
             </div>
-        </nav>
+
+        </div>
+
+
     </header>
     <main id="app"></main>
     <footer>
@@ -62,6 +75,7 @@
 
     <script src="./data.js"></script>
     <script src="./app.js"></script>
+    <script src="./routes.js"></script>
 </body>
 
 </html>
