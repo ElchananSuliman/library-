@@ -19,22 +19,6 @@ async function postData(data) {
 
     }
 }
-// class Book {
-//     constructor(tiltle, outher, imgPath, price, category, bestSeler = "false") {
-//         this.tiltle = tiltle;
-//         this.outher = outher;
-//         this.imgPath = imgPath;
-//         this.category = category;
-//         this.bestSeler = bestSeler;
-//     }
-// }
-
-// let b1 = new Book(
-//     "harry potter",
-//     " J k ROLING",
-//     "imagesharry potter even smarts.webp",
-//     "fantasy"
-// );
 
 class Book {
     constructor(title, author, imgPath, price, category, bestSeller = false) {
@@ -45,6 +29,16 @@ class Book {
         this.category = category;
         this.bestSeller = bestSeller;
     }
+}
+function createDivBook(book){
+    return `
+    <div class book>
+    <div>
+    ${book.title}
+    ${book.author}
+    </div>
+    <button>הוסף לעגלה</button>
+    </div>`
 }
 
 let b1 = new Book(
