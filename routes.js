@@ -9,7 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     404: {
       title: "Page Not Found",
+<<<<<<< HEAD
       content: ` 
+=======
+      content: `
+>>>>>>> 0727adeff18471b4e3365a712eaca92eb5cd3237
         `,
     },
   };
