@@ -1,52 +1,59 @@
 async function postData(data) {
-    try {
-        const response = await fetch("https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs", {
+  try {
+    const response = await fetch(
+      "https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            console.log("Response:", result);
-
-        }
-    } catch (error) {
-        console.log("Erreur:", error);
-
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Response:", result);
     }
+  } catch (error) {
+    console.log("Erreur:", error);
+  }
 }
 
 class Book {
-    constructor(title, author, imgPath, price, category, bestSeller = false) {
-        this.title = title;
-        this.author = author;
-        this.imgPath = imgPath;
-        this.price = price;
-        this.category = category;
-        this.bestSeller = bestSeller;
-    }
+  constructor(tiltle, author, imgPath, price, category, bestSeler = "false") {
+    this.tiltle = tiltle;
+    this.author = author;
+    this.imgPath = imgPath;
+    this.price = price;
+    this.category = category;
+    this.bestSeler = bestSeler;
+  }
 }
-function createDivBook(book){
-    return `
+function createDivBook(book) {
+  return `
     <div class book>
     <div>
     ${book.title}
     ${book.author}
     </div>
     <button>הוסף לעגלה</button>
-    </div>`
+    </div>`;
 }
 
 let b1 = new Book(
-    "harry potter",
-    "J K ROWLING",
-    "imagesharry potter even smarts.webp",
-    29.99, // prix ajouté
-    "fantasy",
-    false // bestSeller optionnel
+  "harry potter",
+  " J k ROLING",
+  "imagesharry potter even smarts.webp",
+  "fantasy"
 );
-postData(b1);
+function createDivBook(book) {
+  return `
+    <div class book>
+    <div>
+    ${book.title}
+    ${book.author}
+    </div>
+    <button>הוסף לעגלה</button>
+    </div>`;
+}
