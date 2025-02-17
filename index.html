@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <title>books</title>
 
 </head>
@@ -12,11 +15,38 @@
 <body>
     <header>
         <nav>
-            <a href="/" class="nav-link">Home</a>
+            <img src="logo.jpg" alt="">
+            <div id="sub-container1">
+                <h1>MY LIBRARY</h1>
+                <div id="sub-container2">
+                    <a href="" class="nav-link">HOME</a>
+                    <a href="" class="nav-link">BOOKS</a>
+                    <input type="search" class="search-input" placeholder="search">
+                    <div class="hamburger-container">
+                        <div id="hamburger">
+                            <i class="fa-solid fa-bars hamburger-menu"></i>
+                            <span>CATEGORY</span>
+                        </div>
+                        <div class="category-dropdown">
+                            <a href="#" class="category-item">Fiction</a>
+                            <a href="#" class="category-item">Non-Fiction</a>
+                            <a href="#" class="category-item">Science</a>
+                            <a href="#" class="category-item">History</a>
+                            <a href="#" class="category-item">Biography</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sub-container3">
+                <i class="fa-solid fa-cart-shopping" id="cart"></i>
+            </div>
         </nav>
     </header>
-    <main id="main"></main>
+    <main id="app"></main>
     <footer></footer>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
 </body>
 
 </html>

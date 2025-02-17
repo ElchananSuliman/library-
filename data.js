@@ -19,19 +19,40 @@ async function postData(data) {
 
     }
 }
+// class Book {
+//     constructor(tiltle, outher, imgPath, price, category, bestSeler = "false") {
+//         this.tiltle = tiltle;
+//         this.outher = outher;
+//         this.imgPath = imgPath;
+//         this.category = category;
+//         this.bestSeler = bestSeler;
+//     }
+// }
+
+// let b1 = new Book(
+//     "harry potter",
+//     " J k ROLING",
+//     "imagesharry potter even smarts.webp",
+//     "fantasy"
+// );
+
 class Book {
-    constructor(tiltle, outher, imgPath, price, category, bestSeler = "false") {
-        this.tiltle = tiltle;
-        this.outher = outher;
+    constructor(title, author, imgPath, price, category, bestSeller = false) {
+        this.title = title;
+        this.author = author;
         this.imgPath = imgPath;
+        this.price = price;
         this.category = category;
-        this.bestSeler = bestSeler;
+        this.bestSeller = bestSeller;
     }
 }
 
 let b1 = new Book(
     "harry potter",
-    " J k ROLING",
+    "J K ROWLING",
     "imagesharry potter even smarts.webp",
-    "fantasy"
+    29.99, // prix ajouté
+    "fantasy",
+    false // bestSeller optionnel
 );
+postData(b1);
