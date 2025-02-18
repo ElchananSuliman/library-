@@ -67,7 +67,7 @@
 //        <div class="cart-container">
 //          <h1 class="content">CART</h1>
 //          <div id="cart-items">
-        
+
 //          </div>
 //          <div id="cart-summary">
 //            <div class="cart-total">
@@ -77,7 +77,7 @@
 //          </div>
 //        </div>
 //       `
-      
+
 //     },
 
 //     404: {
@@ -118,7 +118,7 @@
 //     const route = routes[pathName] || routes["404"];
 
 //     document.title = `${route.title} - Books`;
-   
+
 //     app.innerHTML = route.content;
 
 
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cartItems) {
       // Récupérer les éléments du panier depuis le localStorage
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      
+
       if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Votre panier est vide</p>';
         return;
