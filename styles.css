@@ -3,16 +3,11 @@ body {
     background-color: rgba(241, 200, 146, 0.638);
 }
 
-/* nav {
-    height: 20vh;
-    background: #BCAAA4;
-    display: flex;
-} */
 header {
-    background: #BCAAA4;
+    background: #bcaaa4;
 }
 
-.container {
+header .container {
     display: flex;
     height: 20vh;
 }
@@ -21,11 +16,10 @@ header {
     /* border-radius: 25px 50px; */
 }
 
-
 #sub-container1 {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-around;
     width: 80%;
     height: 18vh;
@@ -48,7 +42,7 @@ h1 {
     color: brown;
     font-weight: 300;
     font-size: 2rem;
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
 }
 
 #sub-container2 {
@@ -60,7 +54,7 @@ h1 {
 
 .nav-link {
     text-decoration: none;
-    font-family: 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: black;
 }
 
@@ -71,11 +65,12 @@ i {
 #cart {
     font-size: 40px;
     margin-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 span {
     padding-left: 10px;
-    font-family: 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: black;
 }
 
@@ -112,7 +107,7 @@ span {
     padding: 10px 15px;
     text-decoration: none;
     color: black;
-    font-family: 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
     transition: background-color 0.3s ease;
 }
 
@@ -138,12 +133,45 @@ span {
     height: 20vh;
 }
 
+#login-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    gap: 10px;
+}
+
+.auth-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #5d4037;
+
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-btn:hover {
+    background-color: #8d6e63;
+    transform: scale(1.05);
+}
+
+.auth-btn:active {
+    transform: scale(0.95);
+}
+
 #user-login {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-
 }
 
 .content {
@@ -157,12 +185,16 @@ span {
 /* Conteneur principal des cartes */
 #cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 livres par ligne */
-    gap: 2rem; /* Espace entre les cartes */
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 livres par ligne */
+    gap: 2rem;
+    /* Espace entre les cartes */
     padding: 2rem;
     width: 75%;
-    max-width: 1400px; /* Limite la largeur maximale */
-    margin: 0 auto; /* Centre le conteneur */
+    max-width: 1400px;
+    /* Limite la largeur maximale */
+    margin: 0 auto;
+    /* Centre le conteneur */
 }
 
 /* Style de chaque carte de livre */
@@ -185,7 +217,8 @@ span {
 /* Style des éléments à l'intérieur de la carte */
 .book img {
     width: 145px;
-    height: 205px; /* Hauteur fixe pour toutes les images */
+    height: 205px;
+    /* Hauteur fixe pour toutes les images */
     object-fit: cover;
     border-radius: 4px;
 }
@@ -243,15 +276,16 @@ span {
         grid-template-columns: 1fr;
     }
 }
+
 /* Container principal du panier */
 .cart-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-  }
-  
-  /* Style pour les articles du panier */
-  .cart-item {
+}
+
+/* Style pour les articles du panier */
+.cart-item {
     display: flex;
     align-items: center;
     padding: 20px;
@@ -260,35 +294,35 @@ span {
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Image de l'article */
-  .cart-item-image {
+}
+
+/* Image de l'article */
+.cart-item-image {
     width: 120px;
     height: 160px;
     object-fit: cover;
     border-radius: 4px;
     margin-right: 20px;
-  }
-  
-  /* Détails de l'article */
-  .cart-item-details {
+}
+
+/* Détails de l'article */
+.cart-item-details {
     flex: 1;
-  }
-  
-  .cart-item-details h3 {
+}
+
+.cart-item-details h3 {
     margin: 0 0 10px 0;
     font-size: 1.2rem;
     color: #333;
-  }
-  
-  .cart-item-details p {
+}
+
+.cart-item-details p {
     margin: 5px 0;
     color: #666;
-  }
-  
-  /* Bouton de suppression */
-  .remove-item {
+}
+
+/* Bouton de suppression */
+.remove-item {
     padding: 8px 16px;
     background-color: #ff4444;
     color: white;
@@ -296,35 +330,35 @@ span {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .remove-item:hover {
+}
+
+.remove-item:hover {
     background-color: #cc0000;
-  }
-  
-  /* Résumé du panier */
-  #cart-summary {
+}
+
+/* Résumé du panier */
+#cart-summary {
     margin-top: 30px;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cart-total {
+}
+
+.cart-total {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
-  }
-  
-  .cart-total h3 {
+}
+
+.cart-total h3 {
     font-size: 1.4rem;
     color: #333;
     margin: 0;
-  }
-  
-  /* Bouton de paiement */
-  .checkout-button {
+}
+
+/* Bouton de paiement */
+.checkout-button {
     display: block;
     width: 100%;
     padding: 15px;
@@ -335,14 +369,14 @@ span {
     font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .checkout-button:hover {
+}
+
+.checkout-button:hover {
     background-color: #45a049;
-  }
-  
-  /* Message panier vide */
-  .empty-cart {
+}
+
+/* Message panier vide */
+.empty-cart {
     text-align: center;
     padding: 40px;
     font-size: 1.2rem;
@@ -350,28 +384,28 @@ span {
     background-color: #f8f9fa;
     border-radius: 8px;
     margin: 20px 0;
-  }
-  
-  /* Responsive design */
-  @media (max-width: 768px) {
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
     .cart-item {
-      flex-direction: column;
-      text-align: center;
+        flex-direction: column;
+        text-align: center;
     }
-  
+
     .cart-item-image {
-      margin: 0 0 20px 0;
+        margin: 0 0 20px 0;
     }
-  
+
     .cart-item-details {
-      width: 100%;
+        width: 100%;
     }
-  
+
     .remove-item {
-      margin-top: 10px;
+        margin-top: 10px;
     }
-  
+
     .cart-total {
-      justify-content: center;
+        justify-content: center;
     }
-  }
+}
