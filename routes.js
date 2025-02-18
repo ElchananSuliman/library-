@@ -121,7 +121,6 @@
 
 //     app.innerHTML = route.content;
 
-
 //     if (pathName === '/') {
 //       diplayBestSeller()
 //     }
@@ -157,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <h1 class="content">BEST SELLERS</h1>
         <div id="cards">
         </div>
-        `
+        `,
     },
     "/Books": {
       title: "all-books",
@@ -165,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <h1 class="content">ALL BOOKS</h1>
         <div id="cards">
         </div>
-        `
+        `,
     },
     "/Fiction": {
       title: "Fiction",
@@ -173,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <h1 class="content">BOOKS - FICTION</h1>
         <div id="cards">
         </div>
-        `
+        `,
     },
     "/Non-Fiction": {
       title: "Non-Fiction",
@@ -223,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <a href="/register" id="go-to-register">Register here</a>
                 </p>
             </div>
-             <div id="welcome-message" class="hidden">
+             <div id="welcome-message" class="hidden message">
       `,
     },
     "/register": {
@@ -285,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </form>
                 <p class="error" id="register-error"></p>
             </div>
-             <div id="welcome-message" class="hidden">`,
+             <div id="welcome-message" class="hidden message"></div>`,
     },
     "/cart": {
       title: "Cart",
@@ -302,50 +301,56 @@ document.addEventListener("DOMContentLoaded", function () {
            <button id="checkout-btn" class="checkout-button">Proceed to Checkout</button>
          </div>
        </div>
-      `
+      `,
     },
     404: {
       title: "Page Not Found",
       content: `
-        `
-    }
+        `,
+    },
   };
 
   function diplayBestSeller() {
     fetch("https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const card1 = document.getElementById("cards");
-        const cardHTML = data.filter(card => card.category === "Best Seller").map(card => createDivBook(card)).join("")
+        const cardHTML = data
+          .filter((card) => card.category === "Best Seller")
+          .map((card) => createDivBook(card))
+          .join("");
         card1.innerHTML = cardHTML;
-      })
+      });
   }
 
   function diplayFiction() {
     fetch("https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const card1 = document.getElementById("cards");
-        const cardHTML = data.filter(card => card.category === "Fiction").map(card => createDivBook(card)).join("")
+        const cardHTML = data
+          .filter((card) => card.category === "Fiction")
+          .map((card) => createDivBook(card))
+          .join("");
         card1.innerHTML = cardHTML;
-      })
+      });
   }
 
   function displayAllBooks() {
     fetch("https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const card2 = document.getElementById("cards");
-        const cardHTML = data.map(card => createDivBook(card)).join("")
+        const cardHTML = data.map((card) => createDivBook(card)).join("");
         card2.innerHTML = cardHTML;
-      })
+      });
   }
 
   function displayCart() {
-    const cartItems = document.getElementById('cart-items');
+    const cartItems = document.getElementById("cart-items");
     if (cartItems) {
       // Récupérer les éléments du panier depuis le localStorage
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Votre panier est vide</p>';
@@ -353,7 +358,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Afficher les éléments du panier
-      const cartHTML = cart.map(item => `
+      const cartHTML = cart
+        .map(
+          (item) => `
         <div class="cart-item">
           <img src="${item.image}" alt="${item.title}" class="cart-item-image">
           <div class="cart-item-details">
@@ -362,13 +369,16 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="remove-item" data-id="${item.id}">Supprimer</button>
           </div>
         </div>
-      `).join('');
+      `
+        )
+        .join("");
 
       cartItems.innerHTML = cartHTML;
 
       // Mettre à jour le total
       const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
-      document.getElementById('cart-total-amount').textContent = total.toFixed(2);
+      document.getElementById("cart-total-amount").textContent =
+        total.toFixed(2);
     }
   }
 
@@ -379,25 +389,30 @@ document.addEventListener("DOMContentLoaded", function () {
     document.title = `${route.title} - Books`;
     app.innerHTML = route.content;
 
-    if (pathName === '/') {
-      diplayBestSeller()
+    if (pathName === "/") {
+      diplayBestSeller();
+      console.log("aaaa");
     }
-    if (pathName === '/Books') {
-      displayAllBooks()
+    if (pathName === "/Books") {
+      displayAllBooks();
+      console.log("cccc");
     }
-    if (pathName === '/Fiction') {
-      diplayFiction()
+    if (pathName === "/Fiction") {
+      diplayFiction();
     }
-    if (pathName === '/cart') {
+    if (pathName === "/cart") {
       displayCart();
-      if (pathName === "/login") {}
-      if (pathName === "/register") {
-        // initElements();
-      }
+    }
+    if (pathName === "/login") {
+      initLogin();
+    }
+    if (pathName === "/register") {
+      initRegister();
+      console.log("bbbbbb");
     }
   }
   document.addEventListener("click", function (event) {
-    const navLink = event.target.closest('.nav-link');
+    const navLink = event.target.closest(".nav-link");
     if (navLink) {
       event.preventDefault();
       const href = navLink.getAttribute("href");
@@ -406,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Gestion de la suppression d'articles du panier
-    if (event.target.classList.contains('remove-item')) {
+    if (event.target.classList.contains("remove-item")) {
       const itemId = event.target.dataset.id;
       removeFromCart(itemId);
       displayCart();
@@ -414,11 +429,142 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function removeFromCart(itemId) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(item => item.id !== itemId);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = cart.filter((item) => item.id !== itemId);
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 
   window.addEventListener("popstate", handleRoute);
   handleRoute();
-})
+
+  // function for login and rgester
+  function saveToLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function loadFromLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+  function toggleVisibility(showElement, hideElement) {
+    showElement.classList.remove("hidden");
+    hideElement.classList.add("hidden");
+  }
+  function goHome() {
+    window.history.pushState({}, "", "/");
+    handleRoute();
+  }
+
+  function initRegister() {
+    const register = document.getElementById("register");
+    const registerForm = document.getElementById("register-form");
+    const registerError = document.getElementById("register-error");
+
+    const welcomeMessage = document.getElementById("welcome-message");
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const newUser = {
+        firstName: registerForm.querySelector("#first-name").value,
+        lastName: registerForm.querySelector("#last-name").value,
+        email: registerForm.querySelector("#email").value,
+        phone: registerForm.querySelector("#phone").value,
+        address: registerForm.querySelector("#address").value,
+        username: registerForm.querySelector("#username").value,
+        password: registerForm.querySelector("#register-password").value,
+      };
+
+      const users = loadFromLocalStorage("users") || [];
+
+      // Check for duplicate username
+      const existingUser = users.find((u) => u.username === newUser.username);
+      if (existingUser) {
+        registerError.textContent = "Username already exists.";
+        registerError.classList.remove("hidden");
+        return;
+      }
+
+      registerError.classList.add("hidden");
+      users.push(newUser);
+      saveToLocalStorage("users", users);
+
+      saveToLocalStorage("currentUser", newUser);
+
+      registerForm.reset();
+      registerError.classList.add("hidden");
+      const currentUser = newUser;
+
+      welcomeMessage.textContent = `You have successfully registered !`;
+      toggleVisibility(welcomeMessage, register);
+
+      setTimeout(() => {
+        welcomeMessage.textContent = `Welcome ${newUser.firstName} ${newUser.lastName} to Books Store!`;
+      }, 3000);
+
+      setTimeout(goHome, 6000);
+
+      // const registerMessage = () => {
+
+      //   setTimeout(() => {
+      //     welcomeMessage.textContent = `Welcome ${currentUser.firstName} ${currentUser.lastName} to Books store!`;
+      //   }, 3000);
+
+      //   setTimeout(() => {
+      //     goHome();
+      //   }, 6000);
+      // };
+      // registerMessage();
+    });
+  }
+  function initLogin() {
+    const loginForm = document.getElementById("login-form");
+    const loginError = document.getElementById("login-error");
+    const goToRegister = document.getElementById("go-to-register");
+    const loginSection = document.getElementById("login");
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = loginForm.querySelector("#username").value;
+      const password = loginForm.querySelector("#password").value;
+
+      const users = loadFromLocalStorage("users") || [];
+      const user = users.find((u) => u.username === username);
+
+      if (!user) {
+        loginError.textContent =
+          "User not found Please enter correct name or register now";
+        loginError.classList.remove("hidden");
+      } else if (user.password !== password) {
+        loginError.textContent = "Incorrect password.";
+        loginError.classList.remove("hidden");
+      } else {
+        loginError.classList.add("hidden");
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        const clear = () => {
+          loginForm.reset();
+          const loginError = document.getElementById("login-error");
+          loginError.classList.add("hidden");
+        };
+        clear();
+        const loginMessage = () => {
+          const currentUser = loadFromLocalStorage("currentUser");
+          welcomeMessage.textContent = `Welcome ${currentUser.firstName} ${currentUser.lastName} to Books store!`;
+
+          toggleVisibility(welcomeMessage, login);
+          setTimeout(() => {
+            goHome();
+          }, 3000);
+        };
+        loginMessage();
+      }
+    });
+
+    goToRegister.addEventListener("click", (e) => {
+      e.preventDefault();
+      const register = "/register";
+      window.history.pushState({}, "", register);
+      handleRoute();
+    });
+  }
+});

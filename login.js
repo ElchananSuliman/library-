@@ -10,52 +10,51 @@ function toggleVisibility(showElement, hideElement) {
   hideElement.classList.add("hidden");
 }
 
-export function initElements() {
-  const loginForm = document.getElementById("login-form");
-  const loginError = document.getElementById("login-error");
-  const goToRegister = document.getElementById("go-to-register");
-  const loginSection = document.getElementById("login");
-  //
-  const registerSection = document.getElementById("register");
-  const registerForm = document.getElementById("register-form");
-  const registerError = document.getElementById("register-error");
-  //
-  // const welcomeMessage = document.getElementById("welcome-message");
+const loginForm = document.getElementById("login-form");
+const loginError = document.getElementById("login-error");
+const goToRegister = document.getElementById("go-to-register");
+const loginSection = document.getElementById("login");
+//
+const registerSection = document.getElementById("register");
+const registerForm = document.getElementById("register-form");
+const registerError = document.getElementById("register-error");
+//
+// const welcomeMessage = document.getElementById("welcome-message");
 
-  registerForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    const newUser = {
-      firstName: registerForm.querySelector("#first-name").value,
-      lastName: registerForm.querySelector("#last-name").value,
-      email: registerForm.querySelector("#email").value,
-      phone: registerForm.querySelector("#phone").value,
-      address: registerForm.querySelector("#address").value,
-      username: registerForm.querySelector("#username").value,
-      password: registerForm.querySelector("#register-password").value,
-    };
+  const newUser = {
+    firstName: registerForm.querySelector("#first-name").value,
+    lastName: registerForm.querySelector("#last-name").value,
+    email: registerForm.querySelector("#email").value,
+    phone: registerForm.querySelector("#phone").value,
+    address: registerForm.querySelector("#address").value,
+    username: registerForm.querySelector("#username").value,
+    password: registerForm.querySelector("#register-password").value,
+  };
 
-    const users = loadFromLocalStorage("users") || [];
+  const users = loadFromLocalStorage("users") || [];
 
-    // Check for duplicate username
-    const existingUser = users.find((u) => u.username === newUser.username);
-    if (existingUser) {
-      registerError.textContent = "Username already exists.";
-      registerError.classList.remove("hidden");
-      return;
-    }
+  // Check for duplicate username
+  const existingUser = users.find((u) => u.username === newUser.username);
+  if (existingUser) {
+    registerError.textContent = "Username already exists.";
+    registerError.classList.remove("hidden");
+    return;
+  }
 
-    registerError.classList.add("hidden");
-    users.push(newUser);
-    saveToLocalStorage("users", users);
+  registerError.classList.add("hidden");
+  users.push(newUser);
+  saveToLocalStorage("users", users);
 
-    saveToLocalStorage("currentUser", newUser);
-    //   localStorage.setItem("currentUser", JSON.stringify(newUser));
+  saveToLocalStorage("currentUser", newUser);
+  //   localStorage.setItem("currentUser", JSON.stringify(newUser));
 
-    clerFormRegister();
-    registerMessage();
-  });
-}
+  clerFormRegister();
+  registerMessage();
+});
+
 function registerMessage() {
   const currentUser = loadFromLocalStorage("currentUser");
   //   const register = document.getElementById("register");
@@ -126,4 +125,18 @@ function clerFormLogin() {
   loginForm.reset();
   const loginError = document.getElementById("login-error");
   loginError.classList.add("hidden");
+}
+
+function test() {
+  const newUser = {
+    firstName: "elchanan",
+    lastName: "suliman",
+    email: "kdjfh@gmail.com",
+    phone: "0586685956",
+    address: "",
+    username: "aaa",
+    password: "123456",
+    cart: [],
+  };
+  localStorage.setItem(currentUser, newUser);
 }
