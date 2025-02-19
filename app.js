@@ -9,3 +9,4 @@ document.addEventListener("click", function (event) {
 });
 
 // get current user
+const currenUserFromSession = "null";
