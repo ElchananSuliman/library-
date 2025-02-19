@@ -314,6 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("https://67aedfbb9e85da2f020e9f92.mockapi.io/blogs/blogs")
       .then((response) => response.json())
       .then((data) => {
+        console.log("Data from API:", data);
         const card1 = document.getElementById("cards");
         const cardHTML = data
           .filter((card) => card.category === "Best Seller")
@@ -488,6 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
       saveToLocalStorage("users", users);
 
       saveToLocalStorage("currentUser", newUser);
+      sessionStorage.setItem("currentUser", newUser);
 
       registerForm.reset();
       registerError.classList.add("hidden");
@@ -501,18 +503,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 3000);
 
       setTimeout(goHome, 6000);
-
-      // const registerMessage = () => {
-
-      //   setTimeout(() => {
-      //     welcomeMessage.textContent = `Welcome ${currentUser.firstName} ${currentUser.lastName} to Books store!`;
-      //   }, 3000);
-
-      //   setTimeout(() => {
-      //     goHome();
-      //   }, 6000);
-      // };
-      // registerMessage();
     });
   }
   function initLogin() {
@@ -540,6 +530,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loginError.classList.add("hidden");
 
         localStorage.setItem("currentUser", JSON.stringify(user));
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
 
         const clear = () => {
           loginForm.reset();
@@ -549,6 +540,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clear();
         const loginMessage = () => {
           const currentUser = loadFromLocalStorage("currentUser");
+          // const currentUser = sessionStorage.getItem("currenUser");
           welcomeMessage.textContent = `Welcome ${currentUser.firstName} ${currentUser.lastName} to Books store!`;
 
           toggleVisibility(welcomeMessage, login);

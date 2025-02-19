@@ -178,8 +178,17 @@ span {
 #user-login {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+  flex-wrap: nowrap;
+}
+#user-login h2 {
+  margin: 0;
+}
+#currentUser {
+  text-align: center;
+  margin: 0;
 }
 
 .content {
