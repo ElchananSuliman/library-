@@ -21,16 +21,16 @@ async function postData(data) {
 }
 
 class Book {
-    constructor(title, author, imgPath, price, category, bestSeller = "false") {
-        this.title = title;
-        this.author = author;
-        this.imgPath = imgPath;
-        this.price = price;
-        this.category = category;
-        this.bestSeller = bestSeller;
-    }
+  constructor(title, author, imgPath, price, category, bestSeller = "false") {
+    this.title = title;
+    this.author = author;
+    this.imgPath = imgPath;
+    this.price = price;
+    this.category = category;
+    this.bestSeller = bestSeller;
+  }
 }
-
+("./images/To Kill a Mockingbird.jpg");
 // const books = [
 //     // Fiction
 //     new Book("To Kill a Mockingbird", "Harper Lee", "images\mockinbird.png", 12.99, "Fiction"),
@@ -87,6 +87,9 @@ function createDivBook(book) {
         <div class="author">${book.author}</div>
         <img src="${book.imgPath}" alt="${book.title}" class="b-card">
         <div class="price">$${book.price}</div>
-        <button onclick='addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})'>ADD TO CART</button>
+        <button onclick='addToCart(${JSON.stringify(book).replace(
+          /"/g,
+          "&quot;"
+        )})'>ADD TO CART</button>
     </div>`;
 }
