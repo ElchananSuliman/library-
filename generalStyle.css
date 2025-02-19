@@ -79,7 +79,7 @@ form button:hover {
 #login-section {
   /* text-align: center; */
   width: 25%;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 #login {
   display: flex;
