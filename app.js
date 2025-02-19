@@ -8,4 +8,12 @@
                 document.querySelector('.category-dropdown').classList.remove('show');
             }
         });
-    
+        function getBookFromButton(button) {
+            return {
+                id: button.dataset.id,  // Récupère l'ID
+                title: button.dataset.title,
+                price: parseFloat(button.dataset.price),
+                image: button.dataset.image
+            };
+        }
+        
