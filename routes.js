@@ -209,14 +209,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         <input type="text" id="username" name="username" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <p class="error hidden" id="login-error"></p>
+                      <div class="form-group">
+                          <label for="password">Password:</label>
+                          <input type="password" id="password" name="password" required>
+                      </div>
+                      <p class="error hidden" id="login-error"></p>
 
-                    <button type="submit">Login</button>
-                </form>
+                      <button type="submit">Login</button>
+                  </form>
 
                 <p>Don't have an account? <br>
                     <a href="/register" id="go-to-register">Register here</a>
@@ -237,46 +237,46 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p class="error hidden" id="first-name-error"></p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="last-name">Last Name:</label>
-                        <input id="last-name" name="last-name" placeholder="הכנס שם (2-15 אותיות בלבד)"
-                            onblur="validateName(this)" required>
-                        <p class="error hidden" id="last-name-error"></p>
-                    </div>
+                      <div class="form-group">
+                          <label for="last-name">Last Name:</label>
+                          <input id="last-name" name="last-name" placeholder="Enter name (2-15 letters only)"
+                              onblur="validateName(this)" required>
+                          <p class="error hidden" id="last-name-error"></p>
+                      </div>
 
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input id="email" name="email" placeholder="example@domain.com" onblur="validateEmail()"
-                            required>
-                        <p class="error hidden" id="email-error">הכנס דוא"ל תקין !</p>
-                    </div>
+                      <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input id="email" name="email" placeholder="example@domain.com" onblur="validateEmail()"
+                              required>
+                          <p class="error hidden" id="email-error">Please enter a valid email!</p>
+                      </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input id="phone" name="phone" placeholder="הכנס מספר טלפון תקין (לדוגמה: 0501234567)"
-                            onblur="validatePhone()" required>
-                        <p class="error hidden" id="phone-error">הכנס מספר טלפון/פלאפון תקין !</p>
-                    </div>
+                      <div class="form-group">
+                          <label for="phone">Phone:</label>
+                          <input id="phone" name="phone" placeholder="Enter valid phone number (e.g., 0501234567)"
+                              onblur="validatePhone()" required>
+                          <p class="error hidden" id="phone-error">Please enter a valid phone number!</p>
+                      </div>
 
-                    <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" name="address" placeholder="הכנס כתובת" required>
-                    </div>
+                      <div class="form-group">
+                          <label for="address">Address:</label>
+                          <input type="text" id="address" name="address" placeholder="Enter address" required>
+                      </div>
 
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input id="username" name="username" placeholder="הכנס שם משתמש לאתר
-                        " onblur="validateName(this)" required>
-                        <p class="error hidden" id="username-error"></p>
-                    </div>
+                      <div class="form-group">
+                          <label for="username">Username:</label>
+                          <input id="username" name="username" placeholder="Enter username"
+                              onblur="validateName(this)" required>
+                          <p class="error hidden" id="username-error"></p>
+                      </div>
 
-                    <div class="form-group">
-                        <label for="register-password">Password:</label>
-                        <input id="register-password" name="register-password" placeholder="סיסמה באורך 6-12 תווים"
-                            onblur="validatePassword()" required>
-                        <p class="error hidden" id="register-password-error">הכנס סיסמא עם מינימום 6 תווים ומקסימום 12
-                        </p>
-                    </div>
+                      <div class="form-group">
+                          <label for="register-password">Password:</label>
+                          <input type="password" id="register-password" name="register-password" 
+                              placeholder="Password (6-12 characters)"
+                              onblur="validatePassword()" required>
+                          <p class="error hidden" id="register-password-error">Password must be between 6 and 12 characters</p>
+                      </div>
 
                     <div class="form-group">
                         <button type="submit">Register</button>
@@ -353,15 +353,19 @@ document.addEventListener("DOMContentLoaded", function () {
       // Récupérer les éléments du panier depuis le localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-      if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="empty-cart">Votre panier est vide</p>';
-        return;
-      }
+      document.addEventListener("click", function (event) {
+        const navLink = event.target.closest('.nav-link');
+        if (navLink) {
+          event.preventDefault();
+          const href = navLink.getAttribute("href");
+          window.history.pushState({}, "", href);
+          handleRoute();
+        }
 
-      // Afficher les éléments du panier
-      const cartHTML = cart
-        .map(
-          (item) => `
+        // Afficher les éléments du panier
+        const cartHTML = cart
+          .map(
+            (item) => `
         <div class="cart-item">
           <img src="${item.image}" alt="${item.title}" class="cart-item-image">
           <div class="cart-item-details">
@@ -371,15 +375,16 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         </div>
       `
-        )
-        .join("");
+          )
+          .join("");
 
-      cartItems.innerHTML = cartHTML;
+        cartItems.innerHTML = cartHTML;
 
-      // Mettre à jour le total
-      const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
-      document.getElementById("cart-total-amount").textContent =
-        total.toFixed(2);
+        // Mettre à jour le total
+        const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+        document.getElementById("cart-total-amount").textContent =
+          total.toFixed(2);
+      })
     }
   }
 
@@ -446,10 +451,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadFromLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
   }
+
   function toggleVisibility(showElement, hideElement) {
     showElement.classList.remove("hidden");
     hideElement.classList.add("hidden");
   }
+
   function goHome() {
     window.history.pushState({}, "", "/");
     handleRoute();
@@ -505,6 +512,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(goHome, 6000);
     });
   }
+
   function initLogin() {
     const loginForm = document.getElementById("login-form");
     const loginError = document.getElementById("login-error");
