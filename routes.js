@@ -274,6 +274,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let cart = [];
 
+  const badge = document.querySelector(".cart-badge");
+
+  function updateBadge() {
+    let itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    console.log(itemCount);
+    badge.textContent = itemCount;
+    badge.style.display = itemCount > 0 ? "flex" : "none";
+  }
+
   document.addEventListener("click", function (event) {
     const navLink = event.target.closest(".nav-link");
     if (navLink) {
@@ -285,26 +294,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //add//
     if (event.target.classList.contains("btn-cart")) {
-      const bookDiv = event.target.closest(".book");
-      const title = bookDiv.querySelector(".title").textContent;
-      const priceText = bookDiv.querySelector(".price").textContent;
-      const price = parseFloat(priceText.replace("$", ""));
+      if (userLogin()) {
+        const bookDiv = event.target.closest(".book");
+        const title = bookDiv.querySelector(".title").textContent;
+        const priceText = bookDiv.querySelector(".price").textContent;
+        const price = parseFloat(priceText.replace("$", ""));
 
-      const URLimage = bookDiv.querySelector(".b-card").src;
-      const existingItem = cart.find((item) => item.title === title);
+        const URLimage = bookDiv.querySelector(".b-card").src;
+        const existingItem = cart.find((item) => item.title === title);
 
-      if (existingItem) {
-        existingItem.quantity++;
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({
+            URLimage,
+            title,
+            price,
+            quantity: 1,
+          });
+        }
+
+        updateCartForUser(cart);
+        displayCart();
       } else {
-        cart.push({
-          URLimage,
-          title,
-          price,
-          quantity: 1,
-        });
+        alert("you need to login first");
       }
-
-      displayCart();
     }
 
     if (event.target.classList.contains("remove-item")) {
@@ -317,6 +331,8 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           cart.splice(itemIndex, 1);
         }
+
+        updateCartForUser(cart);
         displayCart();
       }
     }
@@ -325,6 +341,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .closest(".cart-item")
         .querySelector("strong").textContent;
       increaseQuantity(title);
+
+      updateCartForUser(cart);
     }
   });
 
@@ -368,6 +386,38 @@ document.addEventListener("DOMContentLoaded", function () {
       0
     );
     document.getElementById("cart-total-amount").textContent = total.toFixed(2);
+  }
+
+  function getActiveUser() {
+    return document.getElementById("currentUser").textContent;
+  }
+  function setCart() {
+    cart = getCartUser();
+    updateBadge();
+  }
+
+  function getCartUser() {
+    if (getActiveUser() !== "disconnected") {
+      const users = loadFromLocalStorage("users");
+      const user = users.find((user) => user.username === getActiveUser());
+      return user ? user.cart : [];
+    } else {
+      return [];
+    }
+  }
+
+  function updateCartForUser(newCart) {
+    const users = loadFromLocalStorage("users");
+
+    const activeUsername = getActiveUser();
+    const userIndex = users.findIndex(
+      (user) => user.username === activeUsername
+    );
+    if (userIndex !== -1) {
+      users[userIndex].cart = newCart;
+      saveToLocalStorage("users", users);
+    }
+    setCart();
   }
 
   window.addEventListener("popstate", handleRoute);
@@ -494,6 +544,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setCurrentUser();
         loginMessage();
       }
+      setCart();
     });
 
     goToRegister.addEventListener("click", (e) => {
@@ -520,32 +571,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentUserElement.textContent = user;
   }
 
-  function conectFirst() {}
-
-  function getActiveUser() {
-    return document.getElementById("currentUser").textContent;
-  }
-
-  function getCartUser() {
-    if (getActiveUser() !== disconnected) {
-      const users = loadFromLocalStorage("users");
-      const user = users.find((user) => user.username === getActiveUser());
-      return user ? user.cart : [];
-    } else {
-      return [];
-    }
-  }
-
-  function updateCartForUser(newCart) {
-    const users = loadFromLocalStorage("users");
-
-    const activeUsername = getActiveUser();
-    const userIndex = users.findIndex(
-      (user) => user.username === activeUsername
-    );
-    if (userIndex !== -1) {
-      users[userIndex].cart = newCart;
-      saveToLocalStorage("users", users);
-    }
+  function userLogin() {
+    return getActiveUser() !== "disconnected";
   }
 });
