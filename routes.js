@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   let cart = [];
- 
+
   document.addEventListener("click", function (event) {
     const navLink = event.target.closest(".nav-link");
     if (navLink) {
@@ -289,11 +289,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const URLimage = bookDiv.querySelector(".b-card").src;
       const price = parseFloat(priceText.replace("$", ""));
 
-      
+
       const existingItem = cart.find((item) => item.title === title);
 
       if (existingItem) {
-        existingItem.quantity++; 
+        existingItem.quantity++;
       } else {
         cart.push({
           URLimage,
@@ -306,16 +306,16 @@ document.addEventListener("DOMContentLoaded", function () {
       displayCart();
     }
 
-    
+
     if (event.target.classList.contains("remove-item")) {
       const title = event.target.getAttribute("id");
       const itemIndex = cart.findIndex((item) => item.title === title);
 
       if (itemIndex !== -1) {
         if (cart[itemIndex].quantity > 1) {
-          cart[itemIndex].quantity--; 
+          cart[itemIndex].quantity--;
         } else {
-          cart.splice(itemIndex, 1); 
+          cart.splice(itemIndex, 1);
         }
         displayCart();
       }
@@ -323,17 +323,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (event.target.classList.contains("add-item")) {
       const title = event.target.closest(".cart-item").querySelector("strong").textContent;
       increaseQuantity(title);
-  }
-    
+    }
+
   });
 
   function increaseQuantity(title) {
     const item = cart.find(item => item.title === title);
     if (item) {
-        item.quantity++; // Augmenter la quantité
-        displayCart(); // Mettre à jour l'affichage
+      item.quantity++; // Augmenter la quantité
+      displayCart(); // Mettre à jour l'affichage
     }
-}
+  }
 
   function displayCart() {
     const cartContainer = document.querySelector("#cart-items");
