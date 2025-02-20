@@ -376,6 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       setTimeout(goHome, 6000);
     });
+    setCurrentUser();
   }
 
   function initLogin() {
