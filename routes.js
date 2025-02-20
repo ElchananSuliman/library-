@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   let cart = [];
-
+ 
   document.addEventListener("click", function (event) {
     const navLink = event.target.closest(".nav-link");
     if (navLink) {
@@ -326,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
     
   });
+
   function increaseQuantity(title) {
     const item = cart.find(item => item.title === title);
     if (item) {
