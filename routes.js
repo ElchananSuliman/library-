@@ -1,5 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", function () {
+  setCurrentUser();
   const app = document.getElementById("app");
   const routes = {
     "/": {
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       document.addEventListener("click", function (event) {
-        const navLink = event.target.closest('.nav-link');
+        const navLink = event.target.closest(".nav-link");
         if (navLink) {
           event.preventDefault();
           const href = navLink.getAttribute("href");
@@ -233,14 +233,18 @@ document.addEventListener("DOMContentLoaded", function () {
         cartItems.innerHTML = cartHTML;
 
         // Mettre à jour le total
-        const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
+        const total = cart.reduce(
+          (sum, item) => sum + parseFloat(item.price),
+          0
+        );
         document.getElementById("cart-total-amount").textContent =
           total.toFixed(2);
-      })
+      });
     }
   }
 
   function handleRoute() {
+    console.log("Handling route:", window.location.pathname);
     const pathName = window.location.pathname;
     const route = routes[pathName] || routes["404"];
 
@@ -249,11 +253,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (pathName === "/") {
       diplayBestSeller();
-      console.log("aaaa");
     }
     if (pathName === "/Books") {
       displayAllBooks();
-      console.log("cccc");
     }
     if (pathName === "/Fiction") {
       diplayFiction();
@@ -266,10 +268,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (pathName === "/register") {
       initRegister();
-      console.log("bbbbbb");
     }
   }
-  let cart = [] ;
+  let cart = [];
 
   document.addEventListener("click", function (event) {
     const navLink = event.target.closest(".nav-link");
@@ -280,31 +281,22 @@ document.addEventListener("DOMContentLoaded", function () {
       handleRoute();
     }
 
-
-
-    
-  
-  //add//
-  if (event.target.classList.contains("btn-cart")) {
-   const bookDiv = event.target.closest(".book")
-   const title = bookDiv.querySelector(".title").textContent;
-   const priceText = bookDiv.querySelector(".price").textContent;
-   const price = parseFloat(priceText.replace("$", ""));
-  cart.push({title,price,quantity:0})
-
-  }
-  if (event.target.classList.contains("remove-item")) {
-    const itemId = event.target.dataset.id;
-    removeFromCart(itemId);
-    displayCart();
-  }
-});
-//addtocart//
-function addToCart(){
-
-
-
-}
+    //add//
+    if (event.target.classList.contains("btn-cart")) {
+      const bookDiv = event.target.closest(".book");
+      const title = bookDiv.querySelector(".title").textContent;
+      const priceText = bookDiv.querySelector(".price").textContent;
+      const price = parseFloat(priceText.replace("$", ""));
+      cart.push({ title, price, quantity: 0 });
+    }
+    if (event.target.classList.contains("remove-item")) {
+      const itemId = event.target.dataset.id;
+      removeFromCart(itemId);
+      displayCart();
+    }
+  });
+  //addtocart//
+  function addToCart() {}
   function removeFromCart(itemId) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart = cart.filter((item) => item.id !== itemId);
@@ -313,7 +305,7 @@ function addToCart(){
 
   window.addEventListener("popstate", handleRoute);
   handleRoute();
-/////////////////////////////
+  /////////////////////////////
   // function for login and rgester
   function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -329,6 +321,7 @@ function addToCart(){
   }
 
   function goHome() {
+    console.log("Navigating to home...");
     window.history.pushState({}, "", "/");
     handleRoute();
   }
@@ -350,7 +343,7 @@ function addToCart(){
         address: registerForm.querySelector("#address").value,
         username: registerForm.querySelector("#username").value,
         password: registerForm.querySelector("#register-password").value,
-        cart: []
+        cart: [],
       };
 
       const users = loadFromLocalStorage("users") || [];
@@ -372,7 +365,7 @@ function addToCart(){
 
       registerForm.reset();
       registerError.classList.add("hidden");
-      const currentUser = newUser;
+      // const currentUser = newUser;
 
       welcomeMessage.textContent = `You have successfully registered !`;
       toggleVisibility(welcomeMessage, register);
@@ -389,6 +382,9 @@ function addToCart(){
     const loginForm = document.getElementById("login-form");
     const loginError = document.getElementById("login-error");
     const goToRegister = document.getElementById("go-to-register");
+
+    const welcomeMessage = document.getElementById("welcome-message");
+
     const loginSection = document.getElementById("login");
 
     loginForm.addEventListener("submit", (e) => {
@@ -399,6 +395,7 @@ function addToCart(){
       const users = loadFromLocalStorage("users") || [];
       const user = users.find((u) => u.username === username);
 
+      console.log(loginError);
       if (!user) {
         loginError.textContent =
           "User not found Please enter correct name or register now";
@@ -412,13 +409,11 @@ function addToCart(){
         localStorage.setItem("currentUser", JSON.stringify(user));
         sessionStorage.setItem("currentUser", JSON.stringify(user));
 
-        const clear = () => {
-          loginForm.reset();
-          const loginError = document.getElementById("login-error");
-          loginError.classList.add("hidden");
-        };
-        clear();
+        loginForm.reset();
+        loginError.classList.add("hidden");
+
         const loginMessage = () => {
+          console.log("login massage");
           const currentUser = loadFromLocalStorage("currentUser");
           // const currentUser = sessionStorage.getItem("currenUser");
           welcomeMessage.textContent = `Welcome ${currentUser.firstName} ${currentUser.lastName} to Books store!`;
@@ -428,6 +423,7 @@ function addToCart(){
             goHome();
           }, 3000);
         };
+        setCurrentUser();
         loginMessage();
       }
     });
@@ -438,5 +434,21 @@ function addToCart(){
       window.history.pushState({}, "", register);
       handleRoute();
     });
+  }
+  // set current user
+  function setCurrentUser() {
+    const currentUserFromSession = sessionStorage.getItem("currentUser");
+    const currentUserElement = document.getElementById("currentUser");
+    let user = "disconnected";
+    if (currentUserFromSession) {
+      try {
+        const parsedUser = JSON.parse(currentUserFromSession);
+        user = parsedUser.username || "disconnected";
+      } catch (error) {
+        console.error("Error parsing session data:", error);
+      }
+    }
+
+    currentUserElement.textContent = user;
   }
 });
