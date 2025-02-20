@@ -307,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
       displayCart();
     }
 
-
     if (event.target.classList.contains("remove-item")) {
       const title = event.target.getAttribute("id");
       const itemIndex = cart.findIndex((item) => item.title === title);
@@ -322,14 +321,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     if (event.target.classList.contains("add-item")) {
-      const title = event.target.closest(".cart-item").querySelector("strong").textContent;
+      const title = event.target
+        .closest(".cart-item")
+        .querySelector("strong").textContent;
       increaseQuantity(title);
     }
-
   });
 
   function increaseQuantity(title) {
-    const item = cart.find(item => item.title === title);
+    const item = cart.find((item) => item.title === title);
     if (item) {
       item.quantity++; // Augmenter la quantité
       displayCart(); // Mettre à jour l'affichage
@@ -351,16 +351,23 @@ document.addEventListener("DOMContentLoaded", function () {
        <img src="${item.URLimage}" alt="${item.title}" class="b-card"
      style="width: 80px; height: auto; border-radius: 8px; margin-right: 10px;">
 
-          <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${item.quantity})</p>
-          <button class="add-item" onclick="increaseQuantity('${item.title}')">+</button>
+          <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${
+        item.quantity
+      })</p>
+          <button class="add-item" onclick="increaseQuantity('${
+            item.title
+          }')">+</button>
           <button class="remove-item" id ="${item.title}">-</button>
         </div>
       `;
     });
 
     // Mise à jour du total
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    document.getElementById("cart-total-amount").textContent = total.toFixed(2)
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    document.getElementById("cart-total-amount").textContent = total.toFixed(2);
   }
 
   window.addEventListener("popstate", handleRoute);
