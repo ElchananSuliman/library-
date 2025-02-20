@@ -270,6 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
       initRegister();
     }
   }
+  handleRoute();
 
   let cart = [];
 
@@ -289,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const priceText = bookDiv.querySelector(".price").textContent;
       const price = parseFloat(priceText.replace("$", ""));
 
-
+      const URLimage = bookDiv.querySelector(".b-card").src;
       const existingItem = cart.find((item) => item.title === title);
 
       if (existingItem) {
@@ -347,7 +348,9 @@ document.addEventListener("DOMContentLoaded", function () {
     cart.forEach((item) => {
       cartContainer.innerHTML += `
         <div class="cart-item">
-        <img src="${item.URLimage}" alt="${item.URLimage}" class="b-card">
+       <img src="${item.URLimage}" alt="${item.title}" class="b-card"
+     style="width: 80px; height: auto; border-radius: 8px; margin-right: 10px;">
+
           <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${item.quantity})</p>
           <button class="add-item" onclick="increaseQuantity('${item.title}')">+</button>
           <button class="remove-item" id ="${item.title}">-</button>
@@ -515,6 +518,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function getActiveUser() {
     return document.getElementById("currentUser").textContent;
   }
+
   function getCartUser() {
     if (getActiveUser() !== disconnected) {
       const users = loadFromLocalStorage("users");
