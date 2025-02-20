@@ -87,9 +87,13 @@ function createDivBook(book) {
         <div class="author">${book.author}</div>
         <img src="${book.imgPath}" alt="${book.title}" class="b-card">
         <div class="price">$${book.price}</div>
+<<<<<<< HEAD
         <button onclick='addToCart(${JSON.stringify(book).replace(
           /"/g,
           "&quot;"
         )})'>ADD TO CART</button>
+=======
+        <button class= "btn-cart" onclick='addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})'>ADD TO CART</button>
+>>>>>>> master
     </div>`;
 }

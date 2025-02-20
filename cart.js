@@ -11,7 +11,7 @@ function addToCart(book) {
     let userCart = userCarts[currentUser] || [];
     
     // Check if book already exists in cart
-    const existingBookIndex = userCart.findIndex(item => item.tiltle === book.tiltle);
+    const existingBookIndex = userCart.findIndex(item => item.tiltle === book.title);
     if (existingBookIndex !== -1) {
         userCart[existingBookIndex].quantity = (userCart[existingBookIndex].quantity || 1) + 1;
     } else {
