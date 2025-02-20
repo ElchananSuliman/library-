@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
        <div class="cart-container">
          <h1 class="content">CART</h1>
          <div id="cart-items">
-          
+           <!-- Les articles du panier seront affichés ici -->
          </div>
          <div id="cart-summary">
            <div class="cart-total">
@@ -270,6 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
       initRegister();
     }
   }
+
   let cart = [];
 
   document.addEventListener("click", function (event) {
@@ -286,79 +287,27 @@ document.addEventListener("DOMContentLoaded", function () {
       const bookDiv = event.target.closest(".book");
       const title = bookDiv.querySelector(".title").textContent;
       const priceText = bookDiv.querySelector(".price").textContent;
-      const URLimage = bookDiv.querySelector(".b-card").src;
       const price = parseFloat(priceText.replace("$", ""));
-
-      
-      const existingItem = cart.find((item) => item.title === title);
-
-      if (existingItem) {
-        existingItem.quantity++; 
-      } else {
-        cart.push({
-          URLimage,
-          title,
-          price,
-          quantity: 1,
-        });
-      }
-
+      cart.push({ title, price, quantity: 0 });
+    }
+    if (event.target.classList.contains("remove-item")) {
+      const itemId = event.target.dataset.id;
+      removeFromCart(itemId);
       displayCart();
     }
-
-    
-    if (event.target.classList.contains("remove-item")) {
-      const title = event.target.getAttribute("id");
-      const itemIndex = cart.findIndex((item) => item.title === title);
-
-      if (itemIndex !== -1) {
-        if (cart[itemIndex].quantity > 1) {
-          cart[itemIndex].quantity--; 
-        } else {
-          cart.splice(itemIndex, 1); 
-        }
-        displayCart();
-      }
-    }
-    if (event.target.classList.contains("add-item")) {
-      const title = event.target.closest(".cart-item").querySelector("strong").textContent;
-      increaseQuantity(title);
-  }
-    
   });
-  function increaseQuantity(title) {
-    const item = cart.find(item => item.title === title);
-    if (item) {
-        item.quantity++; // Augmenter la quantité
-        displayCart(); // Mettre à jour l'affichage
-    }
-}
-
-  function displayCart() {
-    const cartContainer = document.querySelector("#cart-items");
-    cartContainer.innerHTML = "";
-
-    if (cart.length === 0) {
-      cartContainer.innerHTML = "<p>The cart is empty</p>";
-      document.getElementById("cart-total-amount").textContent = "0.00";
-      return;
-    }
-    cart.forEach((item) => {
-      cartContainer.innerHTML += `
-        <div class="cart-item">
-        <img src="${item.URLimage}" alt="${item.URLimage}" class="b-card">
-          <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${item.quantity})</p>
-          <button class="add-item" onclick="increaseQuantity('${item.title}')">+</button>
-          <button class="remove-item" id ="${item.title}">-</button>
-        </div>
-      `;
-    });
-
-    // Mise à jour du total
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    document.getElementById("cart-total-amount").textContent = total.toFixed(2)
+  //addtocart//
+  function addToCart() {}
+  function removeFromCart(itemId) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = cart.filter((item) => item.id !== itemId);
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 
+  window.addEventListener("popstate", handleRoute);
+  handleRoute();
+  /////////////////////////////
+  // function for login and rgester
   function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -503,5 +452,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     currentUserElement.textContent = user;
+  }
+
+  function conectFirst() {}
+
+  function getActiveUser() {
+    return document.getElementById("currentUser").textContent;
+  }
+  function getCartUser() {
+    if (getActiveUser() !== disconnected) {
+      const users = loadFromLocalStorage("users");
+      const user = users.find((user) => user.username === getActiveUser());
+      return user ? user.cart : [];
+    } else {
+      return [];
+    }
+  }
+
+  function updateCartForUser(newCart) {
+    const users = loadFromLocalStorage("users");
+
+    const activeUsername = getActiveUser();
+    const userIndex = users.findIndex(
+      (user) => user.username === activeUsername
+    );
+    if (userIndex !== -1) {
+      users[userIndex].cart = newCart;
+      saveToLocalStorage("users", users);
+    }
   }
 });
