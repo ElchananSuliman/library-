@@ -303,17 +303,24 @@ span {
     margin: 0 auto;
     padding: 20px;
 }
-
+#cart-items{
+    display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px; /* Espacement entre les éléments */
+  padding: 10px;
+}
 /* Style pour les articles du panier */
 .cart-item {
     display: flex;
     align-items: center;
+    flex-direction: column;
     padding: 20px;
     margin-bottom: 20px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: flex-end;
 }
 
 /* Image de l'article */
