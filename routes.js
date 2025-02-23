@@ -372,10 +372,12 @@ document.addEventListener("DOMContentLoaded", function () {
           <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${
         item.quantity
       })</p>
+      <div class=btnRemoveAdd>
           <button class="add-item" onclick="increaseQuantity('${
             item.title
           }')">+</button>
           <button class="remove-item" id ="${item.title}">-</button>
+          </div>
         </div>
       `;
     });
@@ -391,6 +393,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function getActiveUser() {
     return document.getElementById("currentUser").textContent;
   }
+
   function setCart() {
     cart = getCartUser();
     updateBadge();
