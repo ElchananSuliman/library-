@@ -352,8 +352,20 @@ document.addEventListener("DOMContentLoaded", function () {
      style="width: 80px; height: auto; border-radius: 8px; margin-right: 10px;">
 
           <p><strong>${item.title}</strong> - $${item.price.toFixed(2)} (x${item.quantity})</p>
-          <button class="add-item" onclick="increaseQuantity('${item.title}')">+</button>
-          <button class="remove-item" id ="${item.title}">-</button>
+          
+
+
+          <div class="cart-buttons" style="display: flex; gap: 10px; margin-top: 10px;">
+      <button class="add-item" onclick="increaseQuantity('${item.title}')"
+              style="background-color: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+        +
+      </button>
+
+      <button class="remove-item" id="${item.title}"
+              style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+        -
+      </button>
+    </div>
         </div>
       `;
     });
